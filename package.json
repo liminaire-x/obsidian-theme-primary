@@ -6,19 +6,23 @@
   "license": "MIT",
   "scripts": {
     "build": "grunt build",
-    "dev": "grunt"
+    "dev": "grunt",
+    "audit:selectors": "node scripts/audit-selectors.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "sass": "1.74.1"
   },
   "devDependencies": {
+    "@electron/asar": "4.3.1",
     "grunt": "^1.6.1",
     "grunt-concat-css": "^0.3.2",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^5.0.0",
     "grunt-contrib-sass": "^2.0.0",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-env": "^1.0.1"
+    "grunt-env": "^1.0.1",
+    "postcss": "8.5.29",
+    "postcss-selector-parser": "7.1.6"
   }
 }

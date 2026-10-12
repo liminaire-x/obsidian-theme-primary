@@ -265,6 +265,18 @@ npm run dev
 
 3. The `Release` workflow checks the tag against `manifest.json`, verifies `theme.css` is up to date, and creates a draft release with `manifest.json` and `theme.css`. Add release notes and publish it on GitHub.
 
+#### Check for Broken Selectors
+
+Obsidian updates can rename or remove the classes and CSS variables the theme targets. To find them:
+
+```
+npm run audit:selectors
+```
+
+The script downloads two official Obsidian builds — the baseline in `scripts/audit-selectors.config.json` and the latest release (or `--to <version>`) — and reports theme selectors and variables that existed in the baseline but are gone in the newer build, with their `src/scss` locations. Community plugins the theme styles (Kanban, Calendar, Style Settings) are checked against their current releases too. Add `--verbose` for informational sections, or `--json <file>` for a machine-readable report.
+
+Findings you've reviewed and decided to keep go in the `ignore` list of the config with a reason. Once all findings are fixed or ignored, raise `baseline` to the Obsidian version you checked against.
+
 ### License
 
 // TODO: Write Licensing terms.
