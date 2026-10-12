@@ -1025,15 +1025,20 @@ body.is-mobile {
 
 /*────────── Fonts ──────────*/
 body {
-  --font-interface-theme: "Interop", "Inter";
-  --font-text-theme: "Interop", "Inter";
-  --font-monospace-theme: "Cascadia Code", "Interop";
-  --bold-weight: var(--font-bold);
+  --font-interface-theme: "Inter", "Inter Variable", "Pretendard Variable", "Pretendard", "Interop";
+  --font-text-theme: "Inter", "Inter Variable", "Pretendard Variable", "Pretendard", "Interop";
+  --font-monospace-theme: "Cascadia Code", "Pretendard Variable", "Pretendard", "Interop";
+  --font-normal: 450;
+  --font-medium: 550;
+  --font-semibold: 650;
+  --font-bold: 750;
+  font-weight: var(--font-weight);
   --pl-alt-one: 1;
   --pl-alt-l: 1;
-  --pl-alt-r: 0;
+  --pl-alt-u: 1;
   --pl-alt-a: 1;
-  font-feature-settings: "calt" 1, "case" 0, "ccmp" 1, "cv01" var(--pl-alt-one), "cv05" var(--pl-alt-l), "cv06" var(--pl-alt-r), "cv11" var(--pl-alt-a);
+  --pl-alt-quotes: 1;
+  font-feature-settings: "calt" 1, "case" 0, "ccmp" 1, "ss03" var(--pl-alt-quotes), "cv01" var(--pl-alt-one), "cv05" var(--pl-alt-l), "cv06" var(--pl-alt-u), "cv08" 0, "cv11" var(--pl-alt-a), "cv12" 0, "cv13" 0;
 }
 
 :is(code, pre, kbd, .HyperMD-codeblock, .cm-inline-code) {
@@ -1515,7 +1520,7 @@ settings:
     collapsed: true
   - id: 'pl-typography-info'
     type: 'info-text'
-    description: 'Fonts are not bundled. Install **Interop** and **Cascadia Code**, or load them from a CSS snippet. These options switch Inter character variants, which Interop keeps.'
+    description: 'Fonts are not bundled. Latin text uses **Inter**, which Obsidian bundles. Hangul uses **Pretendard** (variable), then Interop: install Pretendard or load it from a CSS snippet. These options switch Inter 4 character variants.'
     markdown: true
   - id: 'pl-alt-a'
     type: 'variable-select'
@@ -1547,11 +1552,21 @@ settings:
         value: '1'
       - label: 'Off'
         value: '0'
-  - id: 'pl-alt-r'
+  - id: 'pl-alt-u'
     type: 'variable-select'
-    title: 'Alternate r'
-    description: 'Character variant cv06. In Inter 4 this changes u instead.'
-    default: '0'
+    title: 'Simplified u'
+    description: 'Character variant cv06'
+    default: '1'
+    options:
+      - label: 'On'
+        value: '1'
+      - label: 'Off'
+        value: '0'
+  - id: 'pl-alt-quotes'
+    type: 'variable-select'
+    title: 'Round quotes and commas'
+    description: 'Stylistic set ss03'
+    default: '1'
     options:
       - label: 'On'
         value: '1'
