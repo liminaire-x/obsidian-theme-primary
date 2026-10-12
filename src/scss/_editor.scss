@@ -64,6 +64,19 @@ body {
     padding-inline: 0.2em;
 }
 
+// The color swatch in a revealed ==🟠highlight== is an <img>. Image plugins
+// (e.g. Image Converter) catch clicks on images, so the color menu never
+// opens. Let clicks go to the swatch's wrapper, which opens the menu.
+.cm-s-obsidian .cm-highlight-color-widget {
+    .highlight-swatch {
+        pointer-events: none;
+    }
+
+    &:hover .highlight-swatch {
+        box-shadow: inset 0 0 0 1px rgba(var(--mono-rgb-100), 0.25);
+    }
+}
+
 // File header
 .view-header {
     border-bottom: var(--file-header-border);
