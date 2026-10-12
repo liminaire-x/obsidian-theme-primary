@@ -1075,6 +1075,27 @@ body:not(.is-phone) .workspace-split.mod-root .workspace-leaf-resize-handle {
   background-color: var(--editor-bg-color);
 }
 
+body {
+  --pl-highlight-radius: var(--radius-s);
+}
+
+.cm-s-obsidian span.cm-highlight,
+.markdown-rendered mark {
+  border-radius: var(--pl-highlight-radius);
+  padding-block: 0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.cm-s-obsidian .cm-active span.cm-highlight,
+.cm-s-obsidian span.cm-highlight.cm-footref {
+  border-radius: 0;
+}
+
+.markdown-rendered mark {
+  padding-inline: 0.2em;
+}
+
 .view-header {
   border-bottom: var(--file-header-border);
 }
@@ -1792,6 +1813,12 @@ settings:
     opacity: true
     default-light: '#9d8062'
     default-dark: '#917959'
+  - id: 'pl-highlight-radius'
+    type: 'variable-number'
+    title: 'Highlight Roundness'
+    description: 'Corner radius of ==highlights==, in px. 0 for square corners.'
+    default: 4
+    format: 'px'
   - id: 'active-line-highlight'
     type: 'class-toggle'
     title: 'Highlight Active Line'

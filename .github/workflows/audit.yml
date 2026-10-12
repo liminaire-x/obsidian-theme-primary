@@ -1,0 +1,29 @@
+# Weekly check that the theme's selectors and variables still exist in the
+# latest Obsidian release (scripts/audit-selectors.js). A failed run means an
+# Obsidian update broke something: run `npm run audit:selectors` locally.
+name: Selector Audit
+
+on:
+  schedule:
+    # Mondays 03:17 UTC
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run audit:selectors -- --verbose

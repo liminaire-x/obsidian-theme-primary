@@ -38,6 +38,32 @@ body:not(.is-phone) .workspace-split.mod-root {
     }
 }
 
+// Highlights: rounded, with a little room above and below. In the editor a
+// highlight can be split into several spans (formatting, footnotes, bold), so
+// only reading view, where it is one <mark>, gets side padding. On the line
+// with the cursor the == marks and color swatch show as separate spans, so
+// highlights stay square there.
+body {
+    --pl-highlight-radius: var(--radius-s);
+}
+
+.cm-s-obsidian span.cm-highlight,
+.markdown-rendered mark {
+    border-radius: var(--pl-highlight-radius);
+    padding-block: 0.1em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+.cm-s-obsidian .cm-active span.cm-highlight,
+.cm-s-obsidian span.cm-highlight.cm-footref {
+    border-radius: 0;
+}
+
+.markdown-rendered mark {
+    padding-inline: 0.2em;
+}
+
 // File header
 .view-header {
     border-bottom: var(--file-header-border);
