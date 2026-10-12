@@ -35,6 +35,7 @@ All of these are in Style Settings → Primary Lite.
 | File Explorer → Folder Colors | Color folder names, icons, indentation guides, file names and backgrounds by folder. Six named colors you can adjust. |
 | File Explorer → Icons | Open and closed folder icons in place of the collapse arrows, and icons for notes, bases, canvases and other files. Each icon can be replaced. |
 | Editor | Plain, line grid or dot grid background, borders, file header that shows on hover, readable line width, line number colors, active line highlight, rounded `==highlights==` |
+| Properties | Box with room around the properties, the title as a small label with the collapse arrow on the right, or the title hidden. On tablets the property list stays inside the box. |
 | Ribbon | Docked or slide out on hover, background, border, roundness, width, icon size and spacing |
 | Status Bar | On top, full length, slide up, slide out or floating; show everything, sync only or word count only; background, border, roundness, floating opacity |
 

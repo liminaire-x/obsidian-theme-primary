@@ -1,0 +1,66 @@
+/*────────── Properties ──────────*/
+
+// The heading is a small label with the collapse arrow on the right, as in
+// Primary. Box padding is --metadata-padding in the palette.
+.metadata-properties-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    line-height: unset;
+
+    &.is-collapsed {
+        margin-bottom: 0;
+    }
+
+    .metadata-properties-title {
+        color: var(--pl-properties-title-color);
+        font-size: calc(var(--font-smallest) - 0.1em);
+        font-weight: var(--font-semibold);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding-inline-start: var(--size-4-2);
+        transition: color var(--anim-duration-superfast) var(--anim-motion-smooth);
+    }
+
+    .collapse-indicator {
+        position: static;
+        order: 2;
+        margin-inline-start: auto;
+        opacity: 1;
+    }
+
+    &:hover :is(.metadata-properties-title, .collapse-indicator) {
+        color: var(--pl-properties-title-color-hover);
+    }
+}
+
+// Room between the property rows and their hover and focus outlines
+.metadata-property-icon {
+    padding-inline-start: var(--size-2-3);
+}
+
+.metadata-property-value {
+    padding-inline-end: var(--size-2-3);
+}
+
+// On mobile Obsidian draws the property list as its own card, sized for a
+// box without padding or border. The theme's box already frames it.
+body.is-mobile .metadata-content {
+    transform: none;
+    width: auto;
+    background-color: transparent;
+    padding: 0;
+}
+
+// Obsidian removes the box padding on phones
+body.is-phone .metadata-container {
+    --metadata-padding: var(--size-4-2);
+}
+
+/*────────── SS: Properties Heading ──────────*/
+
+// Only the title: the arrow stays so the box can still be collapsed
+body.pl-properties-hide-heading .metadata-properties-title {
+    display: none;
+}
