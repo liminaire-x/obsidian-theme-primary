@@ -1,0 +1,118 @@
+/*────────── Ribbon ──────────*/
+
+body {
+    --ribbon-border-color: var(--divider-color);
+    // top left, top right, bottom right, bottom left
+    --ribbon-radius: 0 var(--editor-border-radius) var(--editor-border-radius) 0;
+}
+
+.workspace-ribbon {
+    .side-dock-actions,
+    .side-dock-settings {
+        .clickable-icon {
+            color: var(--non-alternating-color);
+            background: var(--icon-bg);
+            padding: var(--ribbon-icon-spacing) var(--size-2-3);
+
+            &:hover {
+                background: var(--icon-bg-hover);
+            }
+
+            &.is-active {
+                background: var(--icon-bg-active);
+            }
+
+            // Icons take one of three colors in turn when hovered or active
+            &:nth-child(3n+1) {
+                &.is-active,
+                &:hover {
+                    color: var(--alternating-color-1);
+                }
+
+                &:active {
+                    color: var(--alternating-color-1-hover-active);
+                }
+            }
+
+            &:nth-child(3n+2) {
+                &.is-active,
+                &:hover {
+                    color: var(--alternating-color-2);
+                }
+
+                &:active {
+                    color: var(--alternating-color-2-hover-active);
+                }
+            }
+
+            &:nth-child(3n+3) {
+                &.is-active,
+                &:hover {
+                    color: var(--alternating-color-3);
+                }
+
+                &:active {
+                    color: var(--alternating-color-3-hover-active);
+                }
+            }
+        }
+    }
+
+    // Older Obsidian (1.6) adds mod-left, newer (1.14) adds mod-primary
+    &.mod-left,
+    &.mod-primary {
+        border: var(--ribbon-border-width) solid var(--ribbon-border-color);
+        border-left: none;
+        border-radius: var(--ribbon-radius);
+        margin-bottom: var(--ribbon-margin-bottom);
+
+        &::before {
+            border-bottom: none;
+        }
+    }
+}
+
+body:not(.is-mobile) .workspace-ribbon .side-dock-ribbon-action .svg-icon {
+    --icon-size: var(--ribbon-icon);
+}
+
+/*────────── SS: Ribbon Styles ──────────*/
+
+body.ribbon-slideout:not(.is-mobile) {
+    .workspace-ribbon.mod-left::before,
+    .workspace-ribbon.mod-primary::before {
+        visibility: hidden;
+    }
+
+    .workspace-ribbon.workspace-ribbon {
+        --ribbon-background: var(--ribbon-slideout-background);
+        --ribbon-background-collapsed: var(--ribbon-background);
+        position: absolute;
+        left: calc(-1 * (var(--ribbon-width) / 4));
+        opacity: 0;
+        transition: var(--anim-motion-jumpy) var(--anim-duration-moderate);
+        box-shadow: var(--ribbon-slideout-shadow);
+
+        &:hover {
+            left: 0px;
+            opacity: 1;
+        }
+    }
+
+    .sidebar-toggle-button.mod-left {
+        background: var(--ribbon-background);
+        --tab-container-background: var(--ribbon-background);
+    }
+
+    &.is-hidden-frameless:not(.is-fullscreen) {
+        .workspace-tabs.mod-top-left-space .workspace-tab-header-container {
+            padding-left: calc(var(--size-4-2) + var(--frame-left-space) + var(--ribbon-width));
+        }
+    }
+
+    &:not(.is-hidden-frameless.is-frameless) {
+        .side-dock-actions {
+            margin-top: var(--header-height);
+        }
+    }
+}

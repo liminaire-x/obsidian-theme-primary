@@ -12,7 +12,7 @@ version no longer has, by comparing two official Obsidian builds
 It downloads each app build from obsidianmd/obsidian-releases,
 reads app.css / app.js from it, and checks every class, icon,
 attribute value and CSS variable the compiled theme
-(src/css/main.css) refers to.
+(src/scss/index.scss) refers to.
 
 Usage:
     npm run audit:selectors
@@ -35,12 +35,13 @@ const zlib = require('zlib');
 const asar = require('@electron/asar');
 const postcss = require('postcss');
 const selectorParser = require('postcss-selector-parser');
+const sass = require('sass');
 
 const ROOT = path.resolve(__dirname, '..');
 const CACHE = path.join(ROOT, '.cache', 'audit');
 const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'audit-selectors.config.json'), 'utf8'));
-const THEME_CSS = path.join(ROOT, 'src/css/main.css');
-const STYLE_SETTINGS = path.join(ROOT, 'src/css/style-settings.css');
+const THEME_SCSS = path.join(ROOT, 'src/scss/index.scss');
+const STYLE_SETTINGS = path.join(ROOT, 'src/style-settings.yaml');
 
 // Obsidian builds some class names from templates, e.g. "mod-{side}-split"
 const TEMPLATE_VALUES = { side: ['left', 'right', 'primary', 'secondary'] };
@@ -228,9 +229,9 @@ function themeOwnedClasses() {
     const owned = new Set();
     const lines = fs.readFileSync(STYLE_SETTINGS, 'utf8').split('\n');
     lines.forEach((line, i) => {
-        const id = line.match(/^\s*-?\s*id:\s*(\S+)/);
-        if (id && /type:\s*class-(toggle|select)/.test(lines[i + 1] || '')) owned.add(id[1]);
-        const value = line.match(/^\s*-?\s*value:\s*(\S+)/);
+        const id = line.match(/^\s*-?\s*id:\s*['"]?([^'"\s]+)/);
+        if (id && /type:\s*['"]?class-(toggle|select)/.test(lines[i + 1] || '')) owned.add(id[1]);
+        const value = line.match(/^\s*-?\s*value:\s*['"]?([^'"\s]+)/);
         if (value) owned.add(value[1]);
     });
     return owned;
@@ -259,11 +260,12 @@ async function main() {
     const classUse = new Map(); // class -> selectors
     const attrUse = new Map();
     const nodesByName = new Map(); // class/attr -> rules, for SCSS locations
-    const theme = scanCss(fs.readFileSync(THEME_CSS, 'utf8'), found => {
+    const compiled = sass.compile(THEME_SCSS, { style: 'expanded', sourceMap: true });
+    const theme = scanCss(compiled.css, found => {
         found.classes.forEach(c => { addTo(classUse, c, found.text); addTo(nodesByName, c, found.rule); });
         found.compounds.forEach(c => { addTo(compoundUse, c.join(' '), found.text); addTo(nodesByName, `.${c.join('.')}`, found.rule); });
         found.attrs.forEach(a => { addTo(attrUse, a, found.text); addTo(nodesByName, a, found.rule); });
-    }, { from: THEME_CSS, map: { prev: fs.readFileSync(`${THEME_CSS}.map`, 'utf8') } });
+    }, { from: path.join(ROOT, 'theme.css'), map: { prev: compiled.sourceMap } });
     theme.varLocations.forEach((nodes, v) => nodesByName.set(v, nodes));
 
     const report = { from: args.from, to: args.to, removed: [], combinations: [], pluginMissing: [], unstyled: [], unknown: [], ignored: [] };

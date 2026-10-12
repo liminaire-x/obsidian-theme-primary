@@ -1,0 +1,117 @@
+/*────────── File Explorer ──────────*/
+
+body {
+    // Icons are CSS masks, so they take the text color. Paste any
+    // url("data:image/svg+xml,...") in Style Settings to replace one.
+    // Defaults are Lucide icons (ISC License, https://lucide.dev).
+    --pl-icon-folder-closed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E");
+    --pl-icon-folder-open: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2'/%3E%3C/svg%3E");
+    --pl-icon-note: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z'/%3E%3Cpath d='M14 2v5a1 1 0 0 0 1 1h5'/%3E%3Cpath d='M10 9H8'/%3E%3Cpath d='M16 13H8'/%3E%3Cpath d='M16 17H8'/%3E%3C/svg%3E");
+    --pl-icon-base: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='7' rx='1'/%3E%3Crect x='3' y='14' width='7' height='7' rx='1'/%3E%3Cpath d='M14 4h7'/%3E%3Cpath d='M14 9h7'/%3E%3Cpath d='M14 15h7'/%3E%3Cpath d='M14 20h7'/%3E%3C/svg%3E");
+    --pl-icon-canvas: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='9' rx='1'/%3E%3Crect x='14' y='3' width='7' height='5' rx='1'/%3E%3Crect x='14' y='12' width='7' height='9' rx='1'/%3E%3Crect x='3' y='16' width='7' height='5' rx='1'/%3E%3C/svg%3E");
+    --pl-icon-file: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z'/%3E%3Cpath d='M14 2v5a1 1 0 0 0 1 1h5'/%3E%3C/svg%3E");
+    --pl-file-icon-size: var(--icon-s);
+}
+
+// Named colors for folder color snippets, e.g. --pl-folder-color: var(--pl-folder-blue)
+.theme-light {
+    --pl-folder-red: var(--color-l-red-30);
+    --pl-folder-orange: var(--color-l-orange-30);
+    --pl-folder-yellow: var(--color-l-yellow-40);
+    --pl-folder-green: var(--color-l-green-40);
+    --pl-folder-blue: var(--color-l-blue-30);
+    --pl-folder-purple: var(--color-l-purple-30);
+}
+
+.theme-dark {
+    --pl-folder-red: var(--color-d-red-30);
+    --pl-folder-orange: var(--color-d-orange-20);
+    --pl-folder-yellow: var(--color-d-yellow-20);
+    --pl-folder-green: var(--color-d-green-20);
+    --pl-folder-blue: var(--color-d-blue-20);
+    --pl-folder-purple: var(--color-d-purple-10);
+}
+
+/*────────── SS: Folder & File Icons ──────────*/
+
+@mixin pl-icon($icon) {
+    content: "";
+    flex: 0 0 auto;
+    width: var(--pl-file-icon-size);
+    height: var(--pl-file-icon-size);
+    background-color: var(--nav-collapse-icon-color);
+    -webkit-mask: $icon center / contain no-repeat;
+    mask: $icon center / contain no-repeat;
+}
+
+// Folders: the icon replaces the collapse arrow
+body.pl-folder-icons .nav-folder-title .collapse-icon {
+    svg.svg-icon {
+        display: none;
+    }
+
+    &::after {
+        @include pl-icon(var(--pl-icon-folder-open));
+    }
+
+    &.is-collapsed::after {
+        -webkit-mask-image: var(--pl-icon-folder-closed);
+        mask-image: var(--pl-icon-folder-closed);
+    }
+}
+
+// Files: the icon sits in the same column as the folder icons
+body.pl-file-icons .nav-file-title {
+    &::after {
+        @include pl-icon(var(--pl-icon-file));
+        order: -1;
+        align-self: center;
+        margin-inline-start: calc(-1 * var(--size-4-5) + (var(--size-4-4) - var(--pl-file-icon-size)) / 2);
+        margin-inline-end: calc(var(--size-4-5) - var(--pl-file-icon-size) - (var(--size-4-4) - var(--pl-file-icon-size)) / 2);
+    }
+
+    &[data-path$=".md" i]::after {
+        -webkit-mask-image: var(--pl-icon-note);
+        mask-image: var(--pl-icon-note);
+    }
+
+    &[data-path$=".base" i]::after {
+        -webkit-mask-image: var(--pl-icon-base);
+        mask-image: var(--pl-icon-base);
+    }
+
+    &[data-path$=".canvas" i]::after {
+        -webkit-mask-image: var(--pl-icon-canvas);
+        mask-image: var(--pl-icon-canvas);
+    }
+}
+
+/*────────── SS: Folder Colors ──────────*/
+
+// A snippet sets --pl-folder-color on a folder's title and on its children
+// container (see snippets/folder-colors.css). Everything inside inherits it,
+// so subfolders and files share the color unless they get their own.
+body.pl-folder-color-text .nav-folder-title {
+    --nav-item-color: var(--pl-folder-color, var(--text-muted));
+    --nav-item-color-hover: var(--pl-folder-color, var(--text-normal));
+}
+
+body.pl-folder-color-files .nav-file-title {
+    --nav-item-color: var(--pl-folder-color, var(--text-muted));
+    --nav-item-color-hover: var(--pl-folder-color, var(--text-normal));
+}
+
+body.pl-folder-color-icon :is(.nav-folder-title, .nav-file-title) {
+    --nav-collapse-icon-color: var(--pl-folder-color, var(--collapse-icon-color));
+    --nav-collapse-icon-color-collapsed: var(--pl-folder-color, var(--text-faint));
+}
+
+// :where() keeps this below Obsidian's hover and active backgrounds
+:where(body.pl-folder-color-background) .nav-folder-title {
+    background-color: color-mix(in srgb, var(--pl-folder-color, transparent) 12%, transparent);
+}
+
+body.pl-folder-color-guides .nav-folder-children {
+    --nav-indentation-guide-color: color-mix(in srgb, var(--pl-folder-color, var(--indentation-guide-color)) 45%, transparent);
+}
+

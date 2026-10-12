@@ -37,7 +37,7 @@ jobs:
         run: |
           npm ci
           npm run build
-          git diff --exit-code --stat -- theme.css Primary.css
+          git diff --exit-code --stat -- theme.css
 
       - name: Create release
         env:

@@ -1,42 +1,7 @@
 {
   "baseline": "1.6.7",
-  "plugins": [
-    {
-      "name": "Kanban",
-      "repo": "mgmeyers/obsidian-kanban",
-      "tag": "latest",
-      "classPrefix": "kanban-plugin__"
-    },
-    {
-      "name": "Calendar",
-      "repo": "liamcain/obsidian-calendar-plugin",
-      "tag": "1.5.10",
-      "note": "GitHub's latest release is the 2.0 beta; 1.5.10 is the version in the community directory"
-    },
-    {
-      "name": "Style Settings",
-      "repo": "mgmeyers/obsidian-style-settings",
-      "tag": "latest",
-      "classPrefix": "style-settings-"
-    }
-  ],
+  "plugins": [],
   "ignore": [
-    {
-      "name": "--text-highlight-bg-rgb",
-      "reason": "Unused since Obsidian 1.14, kept so the override still applies on older app versions (minAppVersion 1.4.0)"
-    },
-    {
-      "name": "--settings-home-background",
-      "reason": "Unused since Obsidian 1.14, kept so the override still applies on older app versions (minAppVersion 1.4.0)"
-    },
-    {
-      "name": "mobile-option-setting-item-option-icon",
-      "reason": "Mobile font check row was removed; only used in :not() exclusions and one icon override, so the dead rules are harmless"
-    },
-    {
-      "name": "kanban-plugin__grow-wrap",
-      "reason": "Removed from Kanban; the other selector in the same rule (.kanban-plugin__lane-input) still applies"
-    },
     {
       "name": ".mod-left.workspace-drawer",
       "reason": "Obsidian adds both mod-left/mod-right and mod-primary/mod-secondary to mobile drawers through its \"mod-{side}\" class template, so the old class still matches; Obsidian's own CSS just targets the new one"
@@ -52,14 +17,6 @@
     {
       "name": ".is-pinned.mod-right.workspace-drawer",
       "reason": "Obsidian adds both mod-left/mod-right and mod-primary/mod-secondary to mobile drawers through its \"mod-{side}\" class template, so the old class still matches; Obsidian's own CSS just targets the new one"
-    },
-    {
-      "name": ".mod-left-split.workspace-split",
-      "reason": "Obsidian adds both mod-left/mod-right and mod-primary/mod-secondary to sidebar splits through its \"mod-{side}-split\" class template, so the old class still matches; Obsidian's own CSS just targets the new one"
-    },
-    {
-      "name": ".mod-right-split.workspace-split",
-      "reason": "Obsidian adds both mod-left/mod-right and mod-primary/mod-secondary to sidebar splits through its \"mod-{side}-split\" class template, so the old class still matches; Obsidian's own CSS just targets the new one"
     },
     {
       "name": ".mod-left.workspace-ribbon",

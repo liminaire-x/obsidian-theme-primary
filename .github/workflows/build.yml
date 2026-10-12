@@ -1,4 +1,4 @@
-# Fails when theme.css / Primary.css don't match what the SCSS sources compile to,
+# Fails when theme.css doesn't match what the SCSS sources compile to,
 # e.g. SCSS was changed but `npm run build` wasn't run before committing.
 name: Build
 
@@ -28,4 +28,4 @@ jobs:
       - run: npm run build
 
       - name: Check theme.css is up to date
-        run: git diff --exit-code --stat -- theme.css Primary.css
+        run: git diff --exit-code --stat -- theme.css
