@@ -1,17 +1,43 @@
-# Taken from https://docs.obsidian.md/Themes/App+themes/Release+your+theme+with+GitHub+Actions
+# Based on https://docs.obsidian.md/Themes/App+themes/Release+your+theme+with+GitHub+Actions
+#
+# Push a tag that matches the "version" in manifest.json (e.g. 2.10.1, no "v" prefix).
+# Obsidian downloads theme.css from the release whose tag equals that version.
 name: Release Obsidian Theme
 
 on:
   push:
     tags:
-      - "v*"
+      - "*"
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check tag matches manifest version
+        run: |
+          tag="${GITHUB_REF#refs/tags/}"
+          version="$(node -p "require('./manifest.json').version")"
+          if [ "$tag" != "$version" ]; then
+            echo "::error::Tag '$tag' does not match manifest.json version '$version'"
+            exit 1
+          fi
+
+      - name: Check theme.css is built from current sources
+        run: |
+          npm ci
+          npm run build
+          git diff --exit-code --stat -- theme.css
 
       - name: Create release
         env:

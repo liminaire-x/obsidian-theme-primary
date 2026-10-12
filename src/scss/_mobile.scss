@@ -1,0 +1,87 @@
+/*────────── Mobile & Tablet ──────────*/
+
+body.is-mobile .clickable-icon svg {
+    --icon-size: var(--icon-m);
+}
+
+// Sidebars (drawers)
+.workspace-drawer-backdrop {
+    backdrop-filter: blur(var(--popup-bg-blur));
+}
+
+.workspace-drawer {
+    background-color: var(--mobile-sidebar-background);
+
+    &-inner {
+        background-color: var(--mobile-sidebar-background);
+    }
+
+    &.is-pinned .workspace-drawer-header,
+    &-header {
+        padding: var(--size-4-4) var(--size-4-5) 0 var(--size-4-5);
+    }
+
+    &-header-switcher {
+        gap: var(--size-4-2);
+    }
+
+    // Obsidian adds both mod-left and mod-primary (mod-right and mod-secondary) here
+    &.mod-left {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+        &:not(.is-pinned) {
+            border-right: 1px solid var(--background-modifier-border);
+            box-shadow: var(--mobile-sidebar-left-shadow);
+        }
+
+        &.is-pinned {
+            --divider-width: 0;
+        }
+    }
+
+    &.mod-right {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+
+        &:not(.is-pinned) {
+            border-left: 1px solid var(--background-modifier-border);
+            box-shadow: var(--mobile-sidebar-right-shadow);
+        }
+
+        &.is-pinned {
+            --divider-width: 0;
+        }
+    }
+
+    .nav-header {
+        padding-left: var(--size-4-3);
+        padding-right: var(--size-4-3);
+    }
+}
+
+.workspace-drawer-ribbon {
+    border-right: 1px solid var(--background-modifier-border);
+}
+
+// Tablet: unpinned sidebars float as cards
+.is-tablet .workspace-drawer:not(.is-pinned) {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: calc(var(--editor-border-radius) * 2);
+    margin: calc(var(--editor-pane-margin) * 3);
+    box-shadow: var(--mobile-sidebar-tablet-shadow);
+}
+
+// Bottom navigation bar and editing toolbar
+.mobile-navbar {
+    border-top: 1px solid var(--background-modifier-border);
+    box-shadow: var(--navbar-shadow);
+}
+
+.mobile-toolbar {
+    width: auto;
+    background: var(--mobile-toolbar-bg);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--radius-l);
+    margin: calc(-1 * var(--size-2-3)) var(--size-4-2) var(--size-4-2) var(--size-4-2);
+}

@@ -1,0 +1,26 @@
+{
+  "baseline": "1.6.7",
+  "plugins": [],
+  "ignore": [
+    {
+      "name": ".mod-left.workspace-drawer",
+      "reason": "Obsidian adds both mod-left/mod-right and mod-primary/mod-secondary to mobile drawers through its \"mod-{side}\" class template, so the old class still matches; Obsidian's own CSS just targets the new one"
+    },
+    {
+      "name": ".mod-right.workspace-drawer",
+      "reason": "Obsidian adds both mod-left/mod-right and mod-primary/mod-secondary to mobile drawers through its \"mod-{side}\" class template, so the old class still matches; Obsidian's own CSS just targets the new one"
+    },
+    {
+      "name": ".is-pinned.mod-left.workspace-drawer",
+      "reason": "Obsidian adds both mod-left/mod-right and mod-primary/mod-secondary to mobile drawers through its \"mod-{side}\" class template, so the old class still matches; Obsidian's own CSS just targets the new one"
+    },
+    {
+      "name": ".is-pinned.mod-right.workspace-drawer",
+      "reason": "Obsidian adds both mod-left/mod-right and mod-primary/mod-secondary to mobile drawers through its \"mod-{side}\" class template, so the old class still matches; Obsidian's own CSS just targets the new one"
+    },
+    {
+      "name": ".mod-left.workspace-ribbon",
+      "reason": "Kept for older Obsidian (1.6); the same rules also target .workspace-ribbon.mod-primary, which newer versions (1.14) use"
+    }
+  ]
+}

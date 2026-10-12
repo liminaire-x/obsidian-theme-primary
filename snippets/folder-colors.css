@@ -1,0 +1,34 @@
+/*
+Primary Lite: folder colors
+
+1. Copy this file to <vault>/.obsidian/snippets/ and rename the folders
+   below to yours. The path is relative to the vault root, e.g.
+   "Projects" or "Areas/Health".
+2. Turn it on in Settings → Appearance → CSS snippets.
+3. Choose where the color shows in Style Settings → Primary Lite →
+   File Explorer → Folder Colors.
+
+Each block needs both selectors: the first colors the folder itself, the
+second passes the color to everything inside it. Subfolders and files use
+their parent's color unless they get a block of their own.
+
+Named colors: --pl-folder-red, --pl-folder-orange, --pl-folder-yellow,
+--pl-folder-green, --pl-folder-blue, --pl-folder-purple (adjustable in
+Style Settings). Any CSS color works too, e.g. #4a90d9.
+*/
+
+.nav-folder-title[data-path="Projects"],
+.nav-folder-title[data-path="Projects"] ~ .nav-folder-children {
+    --pl-folder-color: var(--pl-folder-blue);
+}
+
+.nav-folder-title[data-path="Journal"],
+.nav-folder-title[data-path="Journal"] ~ .nav-folder-children {
+    --pl-folder-color: var(--pl-folder-green);
+}
+
+/* A subfolder with its own color */
+.nav-folder-title[data-path="Projects/Archive"],
+.nav-folder-title[data-path="Projects/Archive"] ~ .nav-folder-children {
+    --pl-folder-color: var(--pl-folder-orange);
+}

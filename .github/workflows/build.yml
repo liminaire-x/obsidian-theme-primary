@@ -1,0 +1,31 @@
+# Fails when theme.css doesn't match what the SCSS sources compile to,
+# e.g. SCSS was changed but `npm run build` wasn't run before committing.
+name: Build
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Check theme.css is up to date
+        run: git diff --exit-code --stat -- theme.css

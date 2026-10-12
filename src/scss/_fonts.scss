@@ -1,0 +1,30 @@
+/*────────── Fonts ──────────*/
+
+// Fonts are not bundled. Install Interop and Cascadia Code, or load them
+// from a CSS snippet with @font-face. A font picked in Settings → Appearance
+// still takes precedence over these.
+body {
+    --font-interface-theme: "Interop", "Inter";
+    --font-text-theme: "Interop", "Inter";
+    --font-monospace-theme: "Cascadia Code", "Interop";
+
+    // Interop only ships 100–800 static weights, so stay on whole hundreds
+    --bold-weight: var(--font-bold);
+
+    // Inter character variants (Interop is built on Inter 3): 1 = on, 0 = off
+    --pl-alt-one: 1; // cv01: alternate 1
+    --pl-alt-l: 1;   // cv05: l with a tail
+    --pl-alt-r: 0;   // cv06: alternate r (u in Inter 4)
+    --pl-alt-a: 1;   // cv11: single-storey a
+
+    font-feature-settings:
+        "calt" 1, "case" 0, "ccmp" 1,
+        "cv01" var(--pl-alt-one),
+        "cv05" var(--pl-alt-l),
+        "cv06" var(--pl-alt-r),
+        "cv11" var(--pl-alt-a);
+}
+
+:is(code, pre, kbd, .HyperMD-codeblock, .cm-inline-code) {
+    font-feature-settings: "calt" 1, "ss02" 1, "ss19" 1, "zero" 1;
+}
