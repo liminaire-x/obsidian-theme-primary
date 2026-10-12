@@ -1026,7 +1026,8 @@ body {
 /*────────── Editor ──────────*/
 body:not(.is-phone) .workspace-split.mod-root {
   background-color: var(--titlebar-background);
-  padding: 0 var(--editor-pane-margin) var(--editor-pane-margin);
+  padding: var(--safe-area-inset-top) var(--editor-pane-margin) var(--editor-pane-margin);
+  padding-left: calc(var(--editor-pane-margin) + var(--safe-area-inset-left));
 }
 body:not(.is-phone) .workspace-split.mod-root .workspace-tab-header-container {
   background-color: transparent;
