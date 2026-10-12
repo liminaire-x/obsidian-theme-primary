@@ -299,6 +299,11 @@ settings:
     opacity: true
     default-light: '#fcfaf8'
     default-dark: '#342c23'
+  - id: 'pl-properties-hide-heading'
+    type: 'class-toggle'
+    title: 'Hide Properties Title'
+    description: 'Hides the title above properties in notes. The collapse arrow stays.'
+    default: false
   - id: 'interface_ribbon'
     type: 'heading'
     level: 1

@@ -162,6 +162,7 @@ body {
   --metadata-divider-width: 0px;
   --metadata-border-radius: var(--radius-m);
   --metadata-property-radius: calc(var(--radius-m) - 1px);
+  --metadata-padding: var(--size-4-3);
   /* Tag */
   --tag-padding-x: 0.6em;
   --tag-padding-y: 0.15em;
@@ -169,6 +170,7 @@ body {
   /*────────── Mobile ──────────*/
 }
 body.is-mobile {
+  --metadata-padding: var(--size-4-2);
   --clickable-icon-radius: var(--radius-m);
   --button-radius: calc(var(--radius-l) - 2px);
   --input-font-weight: var(--font-normal);
@@ -534,6 +536,8 @@ body.is-mobile {
   --metadata-input-background-hover: transparent;
   --metadata-input-background-active: rgba(255, 255, 255, 0.45);
   --metadata-label-background-active: var(--metadata-input-background-active);
+  --pl-properties-title-color: var(--color-l-gray-70);
+  --pl-properties-title-color-hover: var(--color-l-gray-80);
   --metadata-divider-color: var(--background-modifier-border);
   --metadata-divider-color-hover: transparent;
   --metadata-divider-color-focus: transparent;
@@ -950,6 +954,8 @@ body.is-mobile {
   --metadata-input-background-hover: transparent;
   --metadata-input-background-active: rgba(0, 0, 0, 0.2);
   --metadata-label-background-active: var(--metadata-input-background-active);
+  --pl-properties-title-color: var(--color-d-gray-60);
+  --pl-properties-title-color-hover: var(--color-d-gray-50);
   --metadata-divider-color: var(--background-modifier-border);
   --metadata-divider-color-hover: transparent;
   --metadata-divider-color-focus: transparent;
@@ -1155,6 +1161,60 @@ body.file-header-title-hover .view-header-title-container:hover {
 body.active-line-highlight .cm-line.cm-active {
   background: var(--active-line-bg);
   box-shadow: -25vw 0 var(--active-line-bg), 25vw 0 var(--active-line-bg);
+}
+
+/*────────── Properties ──────────*/
+.metadata-properties-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  line-height: unset;
+}
+.metadata-properties-heading.is-collapsed {
+  margin-bottom: 0;
+}
+.metadata-properties-heading .metadata-properties-title {
+  color: var(--pl-properties-title-color);
+  font-size: calc(var(--font-smallest) - 0.1em);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-inline-start: var(--size-4-2);
+  transition: color var(--anim-duration-superfast) var(--anim-motion-smooth);
+}
+.metadata-properties-heading .collapse-indicator {
+  position: static;
+  order: 2;
+  margin-inline-start: auto;
+  opacity: 1;
+}
+.metadata-properties-heading:hover :is(.metadata-properties-title, .collapse-indicator) {
+  color: var(--pl-properties-title-color-hover);
+}
+
+.metadata-property-icon {
+  padding-inline-start: var(--size-2-3);
+}
+
+.metadata-property-value {
+  padding-inline-end: var(--size-2-3);
+}
+
+body.is-mobile .metadata-content {
+  transform: none;
+  width: auto;
+  background-color: transparent;
+  padding: 0;
+}
+
+body.is-phone .metadata-container {
+  --metadata-padding: var(--size-4-2);
+}
+
+/*────────── SS: Properties Heading ──────────*/
+body.pl-properties-hide-heading .metadata-properties-title {
+  display: none;
 }
 
 /*────────── File Explorer ──────────*/
@@ -1839,6 +1899,11 @@ settings:
     opacity: true
     default-light: '#fcfaf8'
     default-dark: '#342c23'
+  - id: 'pl-properties-hide-heading'
+    type: 'class-toggle'
+    title: 'Hide Properties Title'
+    description: 'Hides the title above properties in notes. The collapse arrow stays.'
+    default: false
   - id: 'interface_ribbon'
     type: 'heading'
     level: 1

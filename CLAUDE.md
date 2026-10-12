@@ -10,7 +10,7 @@ Obsidian theme. A lighter take on Primary by Cecilia May: Primary's palette on O
 
 - `src/scss/index.scss` imports the partials:
   - `_palette.scss`: colors and sizes. Generated once from Primary's palette, keeping only variables Obsidian reads or the features use; now edited by hand
-  - `_fonts.scss`, `_editor.scss`, `_file-explorer.scss`, `_ribbon.scss`, `_status-bar.scss`, `_mobile.scss`: one feature each
+  - `_fonts.scss`, `_editor.scss`, `_properties.scss`, `_file-explorer.scss`, `_ribbon.scss`, `_status-bar.scss`, `_mobile.scss`: one feature each
 - `src/style-settings.yaml`: Style Settings options, appended to `theme.css` inside `/* @settings */`
 - `src/header.css`: comment at the top of `theme.css`
 - `theme.css`: build output, committed (Obsidian installs it from the repo/release)

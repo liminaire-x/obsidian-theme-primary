@@ -155,6 +155,11 @@ const SAMPLE = {
         '==🟢green==, ==🔵blue==, ==🟣purple==. **==Bold highlight==** and *==italic highlight==*.', '',
         '[^1]: A footnote.', '',
     ].join('\n'),
+    'Properties.md': [
+        '---', 'tags:', '  - project', '  - 한글', 'aliases:', '  - Props', 'status: In progress',
+        'due: 2026-01-15', 'priority: 2', 'done: false', 'related: "[[Welcome]]"', '---', '',
+        '# Properties', '', 'A note with properties.', '',
+    ].join('\n'),
     'Projects/Alpha/Plan.md': '# Plan\n',
     'Projects/Archive/Old.md': '# Old\n',
     'Projects/Tasks.base': 'views:\n  - type: table\n    name: Table\n',
