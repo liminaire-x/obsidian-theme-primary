@@ -1,28 +1,40 @@
 /*────────── Fonts ──────────*/
 
-// Fonts are not bundled. Install Interop and Cascadia Code, or load them
-// from a CSS snippet with @font-face. A font picked in Settings → Appearance
-// still takes precedence over these.
+// Latin text uses Inter 4, which Obsidian bundles (variable, upright and
+// italic). Hangul uses Pretendard, drawn to match Inter, which is not
+// bundled: install it or load it from a CSS snippet with @font-face. Both are
+// variable fonts, so Primary's in-between weights render as designed. Interop
+// is a last fallback; it only has whole-hundred weights, so 450 shows as 500.
+// A font picked in Settings → Appearance still takes precedence.
 body {
-    --font-interface-theme: "Interop", "Inter";
-    --font-text-theme: "Interop", "Inter";
-    --font-monospace-theme: "Cascadia Code", "Interop";
+    --font-interface-theme: "Inter", "Inter Variable", "Pretendard Variable", "Pretendard", "Interop";
+    --font-text-theme: "Inter", "Inter Variable", "Pretendard Variable", "Pretendard", "Interop";
+    --font-monospace-theme: "Cascadia Code", "Pretendard Variable", "Pretendard", "Interop";
 
-    // Interop only ships 100–800 static weights, so stay on whole hundreds
-    --bold-weight: var(--font-bold);
+    // Primary's weights. Bold text is --font-weight + --bold-modifier (650).
+    --font-normal: 450;
+    --font-medium: 550;
+    --font-semibold: 650;
+    --font-bold: 750;
+    font-weight: var(--font-weight);
 
-    // Inter character variants (Interop is built on Inter 3): 1 = on, 0 = off
-    --pl-alt-one: 1; // cv01: alternate 1
-    --pl-alt-l: 1;   // cv05: l with a tail
-    --pl-alt-r: 0;   // cv06: alternate r (u in Inter 4)
-    --pl-alt-a: 1;   // cv11: single-storey a
+    // Inter 4 character variants: 1 = on, 0 = off
+    --pl-alt-one: 1;    // cv01: alternate 1
+    --pl-alt-l: 1;      // cv05: l with a tail
+    --pl-alt-u: 1;      // cv06: simplified u
+    --pl-alt-a: 1;      // cv11: single-storey a
+    --pl-alt-quotes: 1; // ss03: round quotes and commas
 
     font-feature-settings:
         "calt" 1, "case" 0, "ccmp" 1,
+        "ss03" var(--pl-alt-quotes),
         "cv01" var(--pl-alt-one),
         "cv05" var(--pl-alt-l),
-        "cv06" var(--pl-alt-r),
-        "cv11" var(--pl-alt-a);
+        "cv06" var(--pl-alt-u),
+        "cv08" 0,
+        "cv11" var(--pl-alt-a),
+        "cv12" 0,
+        "cv13" 0;
 }
 
 :is(code, pre, kbd, .HyperMD-codeblock, .cm-inline-code) {

@@ -14,14 +14,17 @@ Most options need the [Style Settings](https://github.com/mgmeyers/obsidian-styl
 
 ## Fonts
 
-Fonts are not bundled, which keeps `theme.css` small. The theme asks for:
+The theme uses the same weights as Primary (450 for text, 650 for bold and headings) and these fonts:
 
-- **[Interop](https://github.com/jhaemin/Interop)** (Inter with Noto Sans KR) for the interface and notes
-- **[Cascadia Code](https://github.com/microsoft/cascadia-code)** for code, falling back to Interop for Hangul
+- **Inter** for Latin text. Obsidian bundles Inter 4 (variable, upright and italic), so nothing to install.
+- **[Pretendard](https://github.com/orioncactus/pretendard)** (variable) for Hangul. It is drawn to match Inter.
+- **[Cascadia Code](https://github.com/microsoft/cascadia-code)** for code, falling back to Pretendard for Hangul.
 
-Install them on your system, or load them from a CSS snippet with `@font-face` (base64 data URLs also work on mobile). A font picked in Settings → Appearance takes precedence over these.
+Pretendard and Cascadia Code are not bundled, which keeps `theme.css` small. Install them on your system, or load them from a CSS snippet with `@font-face` and base64 data URLs, which also works on mobile. A font picked in Settings → Appearance takes precedence over the theme's fonts, so leave those fields empty.
 
-Interop keeps Inter's character variants. Style Settings → Primary Lite → Typography switches them: single-storey a, l with a tail and alternate 1 are on by default, alternate r is off.
+If Pretendard is missing, [Interop](https://github.com/jhaemin/Interop) is used for Hangul. It only has whole-hundred weights, so text shows at 500 instead of 450.
+
+Style Settings → Primary Lite → Typography switches Inter's character variants, all on by default like in Primary: single-storey a, l with a tail, simplified u, alternate 1, and round quotes and commas.
 
 ## Features
 
