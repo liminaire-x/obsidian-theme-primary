@@ -46,7 +46,8 @@
 
 // On mobile Obsidian draws the property list as its own card, sized for a
 // box without padding or border. The theme's box already frames it.
-body.is-mobile .metadata-content {
+body.is-mobile .metadata-content,
+body.is-mobile.mod-rtl .metadata-content {
     transform: none;
     width: auto;
     background-color: transparent;

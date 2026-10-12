@@ -16,10 +16,6 @@
 
     // Sync Icon
     &.plugin-sync {
-        &:hover {
-            background: var(--status-bar-item-bg-hover);
-        }
-
         .mod-success {
             color: var(--sync-icon-success);
 
@@ -28,7 +24,7 @@
             }
 
             &:active {
-                color: var(--sync-icon-success-active)
+                color: var(--sync-icon-success-active);
             }
         }
 
@@ -40,7 +36,7 @@
             }
 
             &:active {
-                color: var(--sync-icon-working-active)
+                color: var(--sync-icon-working-active);
             }
         }
     }
@@ -63,18 +59,16 @@ body.sb-style-slideupfull {
         margin-top: calc(-1 * var(--editor-pane-margin));
         margin-bottom: calc(-1 * (var(--editor-pane-margin) * 1.6));
 
-        &-item { 
+        &-item {
             opacity: 0;
             transition: opacity var(--anim-motion-smooth) var(--anim-duration-moderate);
         }
-    
+
         &:hover {
             margin-bottom: 0px;
-            transition: var(--anim-motion-jumpy) var(--anim-duration-moderate);
-    
+
             .status-bar-item {
                 opacity: 1;
-                transition: opacity var(--anim-motion-smooth) var(--anim-duration-moderate);
             }
         }
     }
@@ -91,33 +85,19 @@ body.sb-style-slideout {
         box-shadow: var(--status-bar-floating-shadow);
         opacity: 0;
         transition: var(--anim-motion-jumpy) var(--anim-duration-slow);
-    
+
         &:hover {
             right: 0;
-            bottom: var(--size-2-3);
             opacity: 1;
-            transition: var(--anim-motion-jumpy) var(--anim-duration-slow);
         }
     }
 
-    &.sb-sync-only {
-        .status-bar {
-            --status-bar-position: absolute;
-            --status-bar-background: var(--status-bar-floating-bg);
-            right: -12px;
-            bottom: var(--size-2-3);
-            --status-bar-border-width: 1px;
-            --status-bar-radius: var(--radius-m) 0 0 var(--radius-m);
-            box-shadow: var(--status-bar-floating-shadow);
-            opacity: 0;
-            transition: var(--anim-motion-jumpy) var(--anim-duration-slow);
-        
-            &:hover {
-                right: 0;
-                bottom: var(--size-2-3);
-                opacity: 1;
-                transition: var(--anim-motion-jumpy) var(--anim-duration-slow);
-            }
+    // The sync icon alone is narrow, so less of it hides
+    &.sb-sync-only .status-bar {
+        right: -12px;
+
+        &:hover {
+            right: 0;
         }
     }
 }
@@ -133,10 +113,9 @@ body.sb-style-floating {
         opacity: var(--status-bar-floating-opacity);
         transition: var(--anim-motion-smooth) var(--anim-duration-fast);
         box-shadow: var(--status-bar-floating-shadow);
-    
+
         &:hover {
             opacity: var(--status-bar-floating-opacity-hover);
-            transition: var(--anim-motion-smooth) var(--anim-duration-fast);
         }
     }
 }

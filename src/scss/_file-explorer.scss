@@ -103,7 +103,6 @@ body.pl-folder-color-files .nav-file-title {
 
 body.pl-folder-color-icon :is(.nav-folder-title, .nav-file-title) {
     --nav-collapse-icon-color: var(--pl-folder-color, var(--collapse-icon-color));
-    --nav-collapse-icon-color-collapsed: var(--pl-folder-color, var(--text-faint));
 }
 
 // :where() keeps this below Obsidian's hover and active backgrounds

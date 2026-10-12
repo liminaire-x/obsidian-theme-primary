@@ -16,6 +16,7 @@ body.is-mobile .clickable-icon svg {
         background-color: var(--mobile-sidebar-background);
     }
 
+    // Obsidian 1.6 pads pinned drawer headers with its own rule
     &.is-pinned .workspace-drawer-header,
     &-header {
         padding: var(--size-4-4) var(--size-4-5) 0 var(--size-4-5);
