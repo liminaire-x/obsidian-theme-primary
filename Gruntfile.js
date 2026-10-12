@@ -156,4 +156,8 @@ module.exports = function(grunt) {
     /*  default command: watches for changes in the working directory
         and performs tasks as indicated under the grunt-contrib-watch plugin    */
     grunt.registerTask('default', ['env:vault', 'loadenv', 'watch']);
+
+    /*  build command: compiles the theme once without watching
+        or copying to a vault (no .env needed)  */
+    grunt.registerTask('build', ['sass:unminified', 'sass:minified', 'cssmin', 'concat_css']);
 };

@@ -215,27 +215,28 @@ Another great way to contribute is by sharing screenshots of how you use Primary
 
 #### Build Instructions
 
-Let's start by installing the essentials.
+Primary is written with a mix of CSS and [Sass](https://sass-lang.com/guide/), and is built with [GruntJS](https://gruntjs.com/configuring-tasks). Both are installed locally as npm dependencies, so the only prerequisite is [NodeJS](https://nodejs.org/en/download) (v22 is used in CI).
 
-Primary is written with a mix of CSS and [Sass](https://sass-lang.com/guide/). If you haven't, do install Sass.
-
-```
-sudo gem install sass
-```
-
-After that, we need to install [GruntJS](https://gruntjs.com/configuring-tasks). Grunt allows developers to run various tasks that would otherwise be tedious. In our case, we want our repo to follow Obisidan's repository guidelines while making it easy for us to debug.
-
-Prerequisites would be installing any [NodeJS](https://nodejs.org/en/download/package-manager/current) version.
+Within the repo's path, install the exact dependency versions from the lockfile:
 
 ```
-npm install -g grunt-cli
+npm ci
 ```
+
+> [!IMPORTANT]
+> Sass is pinned to `1.74.1`. Newer Sass versions emit rules in a different order, which can change the cascade, so upgrade it only together with a visual check in Obsidian.
+
+#### Build Once
+
+```
+npm run build
+```
+
+This compiles `src/scss` and regenerates `theme.css` and `Primary.css`. Commit both files together with your source changes — the `Build` workflow fails if they don't match the sources.
 
 #### Setting up your Theme Dev Environment
 
-Within the repo's path, run `npm install` to build all the necessary modules.
-
-Then, go to the `.env.example` and **define your local Obsidian vault path**.
+Go to the `.env.example` and **define your local Obsidian vault path**.
 
 Update the `OBSIDIAN_PATH` to the local path of your Obsidian theme folder.
 
@@ -246,11 +247,23 @@ Once done, rename the file from `.env.example` to `.env`.
 Run the command below when you start writing code and testing.
 
 ```
-npx grunt
+npm run dev
 ```
 
 > [!NOTE] What does the command do?
 > The command activates the grunt file so that when you save a file in the repo, the Grunt file watches for your save, compiles the CSS and Sass files, minifies it, and copies it in to two locations — one into this repository, and one into the defined path in the `.env` file. This ensures we have an identical copy for testing live within your vault, and one ready for publishing!
+
+#### Release
+
+1. Update `version` in `manifest.json` (format `x.y.z`). Only update `versions.json` when `minAppVersion` changes.
+2. Commit, then push a tag that is exactly the same as the version — no `v` prefix:
+
+   ```
+   git tag -a 2.10.1 -m "2.10.1"
+   git push origin 2.10.1
+   ```
+
+3. The `Release` workflow checks the tag against `manifest.json`, verifies `theme.css` is up to date, and creates a draft release with `manifest.json` and `theme.css`. Add release notes and publish it on GitHub.
 
 ### License
 

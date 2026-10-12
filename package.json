@@ -4,9 +4,13 @@
   "description": "Packages for running GruntJS tasks for better developer experience when building or contributing to Primary for Obsidian. Primary is an intricate, polished, comfy color palette for various apps.",
   "author": "Cecilia May",
   "license": "MIT",
+  "scripts": {
+    "build": "grunt build",
+    "dev": "grunt"
+  },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "sass": "^1.74.1"
+    "sass": "1.74.1"
   },
   "devDependencies": {
     "grunt": "^1.6.1",
