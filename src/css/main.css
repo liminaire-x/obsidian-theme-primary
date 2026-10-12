@@ -3085,13 +3085,13 @@ body:not(.is-phone) .workspace:is(.is-right-sidedock-open):not(.is-left-sidedock
 .workspace-ribbon .side-dock-actions .clickable-icon:nth-child(3n+3):active, .workspace-ribbon .side-dock-settings .clickable-icon:nth-child(3n+3):active {
   color: var(--alternating-color-3-hover-active);
 }
-.workspace-ribbon.mod-left {
+.workspace-ribbon.mod-left, .workspace-ribbon.mod-primary {
   border: var(--ribbon-border-width) solid var(--divider-color);
   border-left: none;
   border-radius: 0px var(--ribbon-radius) var(--ribbon-radius) 0px;
   margin-bottom: var(--ribbon-margin-bottom);
 }
-.workspace-ribbon.mod-left:before {
+.workspace-ribbon.mod-left:before, .workspace-ribbon.mod-primary:before {
   border-bottom: none;
 }
 
@@ -3100,7 +3100,8 @@ body:not(.is-phone) .workspace:is(.is-right-sidedock-open):not(.is-left-sidedock
 }
 
 /*────────── SS: Ribbon Styles ──────────*/
-body.ribbon-slideout:not(.is-mobile) .workspace-ribbon.mod-left:before {
+body.ribbon-slideout:not(.is-mobile) .workspace-ribbon.mod-left:before,
+body.ribbon-slideout:not(.is-mobile) .workspace-ribbon.mod-primary:before {
   visibility: hidden;
 }
 body.ribbon-slideout:not(.is-mobile) .workspace-ribbon.workspace-ribbon {
@@ -3360,6 +3361,7 @@ body.sb-word-count-only .status-bar-item:not(.plugin-word-count) {
 /*────────── Window Frame ──────────*/
 .workspace,
 .workspace-ribbon.mod-left.is-collapsed,
+.workspace-ribbon.mod-primary.is-collapsed,
 .mod-root.workspace-split,
 .mod-root .workspace-tabs .workspace-leaf,
 .workspace-tab-container,

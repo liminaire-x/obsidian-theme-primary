@@ -23,8 +23,9 @@ Settings (baseline version, community plugins, accepted findings)
 live in scripts/audit-selectors.config.json.
 Downloads are cached in .cache/audit.
 
-Exit code is 1 when "Removed in Obsidian" or "Missing from community
-plugin" has findings that are not ignored, and 2 on errors.
+Exit code is 1 when "Removed in Obsidian", "Class combinations gone
+from Obsidian CSS" or "Missing from community plugin" has findings
+that are not ignored, and 2 on errors.
 
 ────────────────────────────────────*/
 
@@ -131,14 +132,31 @@ function origin(node) {
     return o && o.file ? `${path.relative(ROOT, o.file)}:${o.line}` : null;
 }
 
+// Groups of 2+ classes on the same element, e.g. .workspace-ribbon.mod-left → ['mod-left', 'workspace-ribbon']
+function compoundsOf(selector, acc = []) {
+    let current = [];
+    const flush = () => {
+        if (current.length > 1) acc.push([...new Set(current)].sort());
+        current = [];
+    };
+    for (const node of selector.nodes) {
+        if (node.type === 'combinator') flush();
+        else if (node.type === 'class') current.push(node.value);
+        else if (node.type === 'pseudo') node.nodes.forEach(inner => compoundsOf(inner, acc));
+    }
+    flush();
+    return acc;
+}
+
 function scanCss(text, onSelector, parseOptions) {
-    const out = { classes: new Set(), attrs: new Set(), varsDefined: new Set(), varsUsed: new Set(), varLocations: new Map() };
+    const out = { classes: new Set(), attrs: new Set(), varsDefined: new Set(), varsUsed: new Set(), varLocations: new Map(), compounds: [] };
     const root = postcss.parse(text, parseOptions);
     root.walkRules(rule => {
         try {
             selectorParser(selectors => {
                 selectors.each(sel => {
-                    const found = { text: sel.toString().trim(), classes: [], attrs: [], rule };
+                    const found = { text: sel.toString().trim(), classes: [], attrs: [], compounds: compoundsOf(sel), rule };
+                    out.compounds.push(...found.compounds);
                     sel.walk(node => {
                         if (node.type === 'class') {
                             out.classes.add(node.value);
@@ -166,9 +184,10 @@ function scanCss(text, onSelector, parseOptions) {
 }
 
 function indexApp(app) {
-    const css = { classes: new Set(), attrs: new Set(), vars: new Set() };
+    const css = { classes: new Set(), attrs: new Set(), vars: new Set(), compoundsByClass: new Map() };
     for (const text of app.css) {
         const s = scanCss(text);
+        s.compounds.forEach(c => c.forEach(cls => addTo(css.compoundsByClass, cls, c.join(' '))));
         s.classes.forEach(c => css.classes.add(c));
         s.attrs.forEach(a => css.attrs.add(a));
         s.varsDefined.forEach(v => css.vars.add(v));
@@ -194,6 +213,15 @@ function hasClass(app, cls) {
 }
 const hasAttr = (app, attr) => app.css.attrs.has(attr) || app.js.includes(attr.slice(attr.indexOf('=') + 1));
 const hasVar = (app, v) => app.css.vars.has(v) || app.tokens.has(v);
+
+// Does Obsidian's own CSS put all of these classes on one element somewhere?
+function hasCompound(app, classes) {
+    const candidates = app.css.compoundsByClass.get(classes[0]) || new Set();
+    return [...candidates].some(c => {
+        const set = new Set(c.split(' '));
+        return classes.every(cls => set.has(cls));
+    });
+}
 
 // Classes the theme adds itself through Style Settings (class-toggle ids and class-select values)
 function themeOwnedClasses() {
@@ -227,16 +255,18 @@ async function main() {
     const owned = themeOwnedClasses();
     const ignored = new Map(CONFIG.ignore.map(i => [i.name, i.reason]));
 
+    const compoundUse = new Map(); // 'a b' -> selectors
     const classUse = new Map(); // class -> selectors
     const attrUse = new Map();
     const nodesByName = new Map(); // class/attr -> rules, for SCSS locations
     const theme = scanCss(fs.readFileSync(THEME_CSS, 'utf8'), found => {
         found.classes.forEach(c => { addTo(classUse, c, found.text); addTo(nodesByName, c, found.rule); });
+        found.compounds.forEach(c => { addTo(compoundUse, c.join(' '), found.text); addTo(nodesByName, `.${c.join('.')}`, found.rule); });
         found.attrs.forEach(a => { addTo(attrUse, a, found.text); addTo(nodesByName, a, found.rule); });
     }, { from: THEME_CSS, map: { prev: fs.readFileSync(`${THEME_CSS}.map`, 'utf8') } });
     theme.varLocations.forEach((nodes, v) => nodesByName.set(v, nodes));
 
-    const report = { from: args.from, to: args.to, removed: [], pluginMissing: [], unstyled: [], unknown: [], ignored: [] };
+    const report = { from: args.from, to: args.to, removed: [], combinations: [], pluginMissing: [], unstyled: [], unknown: [], ignored: [] };
     const push = (bucket, item) => {
         if (ignored.has(item.name)) report.ignored.push({ ...item, reason: ignored.get(item.name) });
         else report[bucket].push(item);
@@ -255,6 +285,16 @@ async function main() {
         else push(hasClass(base, cls) ? 'removed' : 'unknown', item);
     }
 
+    for (const [key, sels] of [...compoundUse].sort()) {
+        // Each class still exists, but Obsidian stopped using them together, e.g. the
+        // ribbon moving from .workspace-ribbon.mod-left to .workspace-ribbon.mod-primary
+        const classes = key.split(' ');
+        if (classes.some(c => owned.has(c) || pluginFor(plugins, c) || !hasClass(target, c))) continue;
+        if (hasCompound(base, classes) && !hasCompound(target, classes)) {
+            push('combinations', { kind: 'combination', name: `.${classes.join('.')}`, selectors: [...sels] });
+        }
+    }
+
     for (const [attr, sels] of [...attrUse].sort()) {
         if (hasAttr(base, attr) && !hasAttr(target, attr)) push('removed', { kind: 'attribute', name: attr, selectors: [...sels] });
     }
@@ -268,7 +308,7 @@ async function main() {
         if (!theme.varsDefined.has(v) && hasVar(base, v) && !hasVar(target, v)) push('removed', { kind: 'variable (used)', name: v });
     }
 
-    for (const bucket of ['removed', 'pluginMissing', 'unstyled', 'unknown', 'ignored']) {
+    for (const bucket of ['removed', 'combinations', 'pluginMissing', 'unstyled', 'unknown', 'ignored']) {
         for (const item of report[bucket]) {
             const locations = new Set([...(nodesByName.get(item.name) || [])].map(origin).filter(Boolean));
             item.locations = [...locations].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
@@ -277,7 +317,7 @@ async function main() {
 
     print(report, plugins, args.verbose);
     if (args.json) fs.writeFileSync(args.json, JSON.stringify(report, null, 2));
-    process.exitCode = report.removed.length + report.pluginMissing.length > 0 ? 1 : 0;
+    process.exitCode = report.removed.length + report.combinations.length + report.pluginMissing.length > 0 ? 1 : 0;
 }
 
 function print(report, plugins, verbose) {
@@ -299,6 +339,8 @@ function print(report, plugins, verbose) {
     console.log(`Plugins: ${plugins.map(p => `${p.name} (${p.tag})`).join(', ')}`);
     section('Removed in Obsidian', report.removed,
         `Present in ${report.from}, gone in ${report.to}: rules using these no longer apply.`);
+    section('Class combinations gone from Obsidian CSS', report.combinations,
+        `Obsidian ${report.from} styled these classes together on one element, ${report.to} never does.`);
     section('Missing from community plugin', report.pluginMissing,
         'Plugin-prefixed classes the current plugin release no longer has.');
     section('No longer styled by Obsidian', report.unstyled,

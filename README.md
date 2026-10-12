@@ -273,7 +273,7 @@ Obsidian updates can rename or remove the classes and CSS variables the theme ta
 npm run audit:selectors
 ```
 
-The script downloads two official Obsidian builds — the baseline in `scripts/audit-selectors.config.json` and the latest release (or `--to <version>`) — and reports theme selectors and variables that existed in the baseline but are gone in the newer build, with their `src/scss` locations. Community plugins the theme styles (Kanban, Calendar, Style Settings) are checked against their current releases too. Add `--verbose` for informational sections, or `--json <file>` for a machine-readable report.
+The script downloads two official Obsidian builds — the baseline in `scripts/audit-selectors.config.json` and the latest release (or `--to <version>`) — and reports theme selectors and variables that existed in the baseline but are gone in the newer build, with their `src/scss` locations. It also flags class combinations (e.g. `.workspace-ribbon.mod-left`) that Obsidian's own CSS stopped using, which catches classes that were renamed on one element but still exist elsewhere. Community plugins the theme styles (Kanban, Calendar, Style Settings) are checked against their current releases too. Add `--verbose` for informational sections, or `--json <file>` for a machine-readable report.
 
 Findings you've reviewed and decided to keep go in the `ignore` list of the config with a reason. Once all findings are fixed or ignored, raise `baseline` to the Obsidian version you checked against.
 
