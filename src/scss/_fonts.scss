@@ -9,7 +9,13 @@
 body {
     --font-interface-theme: "Inter", "Inter Variable", "Pretendard Variable", "Pretendard", "Interop";
     --font-text-theme: "Inter", "Inter Variable", "Pretendard Variable", "Pretendard", "Interop";
-    --font-monospace-theme: "Cascadia Code", "Pretendard Variable", "Pretendard", "Interop";
+    // Fonts fall back per character, so monospace fonts come before Pretendard:
+    // without Cascadia Code, Latin code text would otherwise be proportional.
+    // These are Obsidian's defaults plus Android's, without the generic
+    // monospace, which would take Hangul too.
+    --font-monospace-theme: "Cascadia Code", ui-monospace, SFMono-Regular, "Cascadia Mono", "Roboto Mono",
+        "DejaVu Sans Mono", "Liberation Mono", Menlo, Monaco, "Consolas", "Source Code Pro",
+        "Droid Sans Mono", "Noto Sans Mono", "Pretendard Variable", "Pretendard", "Interop";
 
     // Primary's weights. Bold text is --font-weight + --bold-modifier (650).
     --font-normal: 450;

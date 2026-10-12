@@ -103,12 +103,11 @@ body {
     --blockquote-border-thickness: 2px;
 
     /* Callout */
-    --callout-shadow-offset: 4px;
+    // The title is a tinted band and the content fills the box below it
+    --callout-padding: 0;
+    --callout-border-width: 1px;
     --callout-title-padding: var(--size-4-3) var(--size-4-4);
-    --callout-content-padding:  var(--size-4-1)
-                                var(--size-4-4)
-                                calc(var(--size-4-1) + var(--callout-shadow-offset))
-                                var(--size-4-4);
+    --callout-content-padding: var(--size-4-1) var(--size-4-4) var(--size-4-2);
     --callout-radius: var(--radius-m);
     --callout-blend-mode: unset;
 
@@ -118,8 +117,10 @@ body {
 
     /* Code */
     --code-radius: var(--radius-m);
+    --pl-inline-code-radius: var(--radius-s);
 
     /* Embeds */
+    --pl-embed-radius: var(--radius-m);
     --embed-padding: var(--size-2-3) var(--embed-left-right-padding) 0px;
     --embed-left-right-padding: var(--size-4-4);
     --embed-border-top:
@@ -172,7 +173,7 @@ body {
 
     --h4-weight: var(--font-semibold);
     --h4-letter-spacing: unset;
-    
+
     --h5-weight: var(--font-semibold);
     --h5-letter-spacing: unset;
 
@@ -239,6 +240,7 @@ body {
     --color-l-alpha-gray: hsla(34, 37%, 70%, 0.15);
 
     /* Red */
+    --color-l-red-10: hsla(4, 59%, 64%, 1);
     --color-l-red-20: hsla(4, 72%, 55%, 1);
     --color-l-red-30: hsla(4, 56%, 48%, 1);
     --color-l-red-40: hsla(4, 72%, 35%, 1);
@@ -268,7 +270,7 @@ body {
 
     /* Purple */
     --color-l-purple-30: hsla(275, 37%, 43%, 1);
-    
+
     /*────────── Foundations ──────────*/
 
     /* Base Colors */
@@ -303,7 +305,7 @@ body {
     --color-accent-2: hsl(
                         calc(var(--accent-h) - 3),
                         calc(var(--accent-s) * 1.33),
-                        calc(var(--accent-l) * 1.19) 
+                        calc(var(--accent-l) * 1.19)
                         );
 
     --interactive-normal: var(--color-l-gray-30);
@@ -346,7 +348,6 @@ body {
     --color-purple-rgb: 135, 106, 193;
     --color-purple: hsla(249, 39%, 60%, 1);
 
-    --color-pink-rgb: 217, 102, 122;
     --color-pink: hsla(351, 44%, 61%, 1);
 
     /* Shadow */
@@ -374,8 +375,6 @@ body {
     --background-modifier-box-shadow: rgba(0, 0, 0, 0.1);
     --background-modifier-cover: rgba(220, 220, 220, 0.4);
 
-    --background-modifier-warning: var(--color-l-orange-30);
-    --background-modifier-warning-hover: var(--color-l-orange-20);
 
     --background-modifier-error-rgb: var(--color-red-rgb);
     --background-modifier-error: var(--color-l-red-30);
@@ -421,7 +420,7 @@ body {
     --sync-icon-success: var(--color-l-green-30);
     --sync-icon-success-hover: var(--color-l-green-20);
     --sync-icon-success-active: var(--status-bar-item-clickable-color-active);
-    
+
     /*────────── Window ──────────*/
 
     /* Divider */
@@ -456,7 +455,7 @@ body {
     /* Vault Switcher */
     --vault-profile-color: var(--vault-name-color);
     --vault-name-color: var(--color-l-gray-100);
-    
+
     /*────────── Components ──────────*/
 
     /* Caret */
@@ -504,10 +503,6 @@ body {
     /* Notice */
     --background-modifier-message: var(--color-l-gray-100);
     --notice-color: var(--text-on-accent);
-    --notice-shadow:    inset 0px 0px 0px 1px rgba(0, 0, 0, 0.12),
-                            0px 2px 9px -2.1px rgba(0, 0, 0, 0.38),
-                            0px 3px 17px -4.3px rgba(0, 0, 0, 0.12),
-                            0px 7px 30px -5.5px rgba(0, 0, 0, 0.09);
 
     /* Pill */
     --pill-color: var(--color-l-gray-120);
@@ -521,7 +516,6 @@ body {
 
     /* Prompt */
     --prompt-border-color: var(--background-modifier-border-focus);
-    --prompt-border-color: var(--background-modifier-border-focus);
 
     /* Search */
     --search-icon-color: var(--color-l-gray-80);
@@ -531,12 +525,12 @@ body {
     --slider-track-background: var(--color-l-gray-60);
     --slider-thumb-border-width: 0px;
     --slider-thumb-shadow:  inset 0px 0px 0px 1px rgba(0, 0, 0, 0.15),
-                            inset 0pc 1px 0px 1px rgba(255, 255, 255, 1),
+                            inset 0px 1px 0px 1px rgba(255, 255, 255, 1),
                             inset 0px -1px 0px 1px rgba(0, 0, 0, 0.09),
                             0px 1px 2px 0px rgba(0, 0, 0, 0.1);
 
     --slider-thumb-shadow-hover: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.15),
-                                 inset 0pc 1px 0px 1px rgba(255, 255, 255, 1),
+                                 inset 0px 1px 0px 1px rgba(255, 255, 255, 1),
                                  inset 0px -1px 0px 1px rgba(0, 0, 0, 0.09),
                                  0px 1px 2px 0px rgba(0, 0, 0, 0.1),
                                  0px 0px 0px 6px rgba(0, 0, 0, 0.05);
@@ -550,9 +544,9 @@ body {
     --tab-text-color-focused-highlighted: var(--text-accent);
     --tab-text-color-focused-active-current: var(--text-normal);
     --tab-divider-color: var(--background-modifier-border-hover);
-    --tab-outline-color: var(--color-l-gray-70);
-    // Stacked Tab
     --tab-outline-color: transparent;
+
+    // Stacked Tab
     --tab-stacked-shadow:   -2.9px 0 10.5px -6.2px rgba(0, 0, 0, 0.08),
                             -6.2px 0 3.6px -5.2px rgba(0, 0, 0, 0.04),
                             -9.4px 0 8.4px -4.1px rgba(0, 0, 0, 0.06);
@@ -581,7 +575,7 @@ body {
     --tooltip-shadow:   inset 0px -1px 0px 0px rgba(0, 0, 0, 0.12),
                         0px 2px 4px -1.4px rgba(0, 0, 0, 0.3),
                         0px 3px 10px -1.7px rgba(0, 0, 0, 0.14);
-    
+
     /*────────── Editor ──────────*/
 
     /* Active Line */
@@ -600,16 +594,16 @@ body {
 
     --callout-title-color: var(--text-normal);
     --callout-content-background: color-mix(
-                                    in srgb, 
-                                    var(--background-primary-alt) 50%, 
+                                    in srgb,
+                                    var(--background-primary-alt) 50%,
                                     var(--background-primary)
                                     );
 
     /* Embed */
     --embed-background: var(--embed-bg-color-mix);
     --embed-bg-color-mix: color-mix(
-                                    in srgb, 
-                                    var(--background-primary-alt) 50%, 
+                                    in srgb,
+                                    var(--background-primary-alt) 50%,
                                     var(--editor-bg-color)
                                     );
     --embed-border-top-color: var(--background-modifier-border);
@@ -678,11 +672,15 @@ body {
     --metadata-divider-color-hover: transparent;
     --metadata-divider-color-focus: transparent;
 
+    /* Inline Code */
+    --pl-inline-code-color: var(--color-l-red-10);
+    --pl-inline-code-background: var(--color-l-gray-10);
+
     /* Table */
     --table-background: var(--color-l-gray-10);
     --table-header-background: var(--color-l-gray-30);
     --table-header-background-hover: var(--table-header-background);
-    --table-column-alt-background: var(--color-l-gray-30);
+    --table-column-alt-background: transparent;
 
     /* Tag */
     --tag-color: var(--color-l-blue-30);
@@ -694,7 +692,7 @@ body {
     --tag-border-color-hover: rgba(0, 0, 0, 0.25);
 
     /*────────── Mobile ──────────*/
-    
+
     &.is-mobile {
         --mobile-sidebar-background: var(--background-secondary);
 
@@ -711,18 +709,13 @@ body {
         --navbar-shadow:    0px 4px 20px 0px rgba(0, 0, 0, 0.1),
                             0px 1px 4px 0px rgba(0, 0, 0, 0.05);
     }
-    
+
     /*────────── Core Plugins ──────────*/
 
     /* Canvas */
+    // Card colors come from Obsidian, which builds them from --color-*. 1.6
+    // wants rgb triplets here and 1.14 full colors, so don't set them.
     --canvas-background: var(--editor-bg-color);
-    --canvas-color: var(--color-gray-rgb);
-    --canvas-color-1: var(--color-red-rgb);
-    --canvas-color-2: var(--color-orange-rgb);
-    --canvas-color-3: var(--color-yellow-rgb);
-    --canvas-color-4: var(--color-green-rgb);
-    --canvas-color-5: var(--color-blue-rgb);
-    --canvas-color-6: var(--color-purple-rgb);
 
     /* Graph */
     --graph-node: var(--color-l-blue-20);
@@ -764,6 +757,7 @@ body {
     --color-d-alpha-gray: hsla(34, 24%, 40%, 0.2);
 
     /* Red */
+    --color-d-red-20: hsla(4, 91%, 67%, 1);
     --color-d-red-30: hsla(4, 88%, 61%, 1);
     --color-d-red-40: hsla(2, 75%, 52%, 1);
 
@@ -838,7 +832,7 @@ body {
     --interactive-accent: var(--color-accent-1);
     --interactive-accent-hover: var(--color-accent-2);
 
-    /* Alternating Colors */
+    /* Special Colors */
     --color-gray-rgb: 166, 150, 142;
 
     --color-red-rgb: 228, 87, 78;
@@ -862,10 +856,9 @@ body {
     --color-purple-rgb: 139, 113, 185;
     --color-purple: rgb(113, 97, 194);
 
-    --color-pink-rgb: 224, 108, 138;
     --color-pink: rgb(180, 100, 100);
 
-    /* Special Colors */
+    /* Alternating Colors */
     --non-alternating-color: var(--color-d-gray-60);
     --alternating-color-1: var(--color-d-yellow-30);
     --alternating-color-1-hover-active: var(--color-d-yellow-40);
@@ -899,8 +892,6 @@ body {
     --background-modifier-box-shadow: rgba(0, 0, 0, 0.3);
     --background-modifier-cover: rgba(10, 10, 10, 0.4);
 
-    --background-modifier-warning: var(--color-d-orange-40);
-    --background-modifier-warning-hover: var(--color-d-orange-30);
 
     --background-modifier-error-rgb: var(--color-red-rgb);
     --background-modifier-error: var(--color-d-red-40);
@@ -947,8 +938,6 @@ body {
     --sync-icon-success-hover: var(--color-d-green-30);
     --sync-icon-success-active: var(--status-bar-item-clickable-color-active);
 
-    --search-icon-color: var(--icon-color);
-    
     /*────────── Window ──────────*/
 
     /* Divider */
@@ -983,9 +972,9 @@ body {
     /* Vault Switcher */
     --vault-profile-color: var(--vault-name-color);
     --vault-name-color: var(--color-d-gray-40);
-    
+
     /*────────── Components ──────────*/
-    
+
     /* Caret */
     --caret-color: var(--color-d-gray-50);
 
@@ -1032,10 +1021,6 @@ body {
     /* Notice */
     --background-modifier-message: var(--color-d-gray-70);
     --notice-color: var(--text-normal);
-    --notice-shadow:    inset 0px 0px 0px 1px rgba(255, 255, 255, 0.09),
-                        0px 2px 9px -2.1px rgba(0, 0, 0, 0.4),
-                        0px 3px 17px -4.3px rgba(0, 0, 0, 0.3),
-                        0px 7px 30px -5.5px rgba(0, 0, 0, 0.2);
 
     /* Pill */
     --pill-color: var(--color-d-gray-30);
@@ -1051,20 +1036,19 @@ body {
     --prompt-border-color: var(--background-modifier-border-focus);
 
     /* Search */
-    --search-icon-color: var(--color-d-gray-60);
-    --search-clear-button-color: var(--icon-color);
     --search-icon-color: var(--icon-color);
+    --search-clear-button-color: var(--icon-color);
 
     /* Slider */
     --slider-track-background: var(--color-d-gray-120);
     --slider-thumb-border-width: 0px;
     --slider-thumb-shadow:  inset 0px 0px 0px 1px rgba(0, 0, 0, 0.35),
-                            inset 0pc 1px 0px 1px rgba(255, 255, 255, 0.3),
+                            inset 0px 1px 0px 1px rgba(255, 255, 255, 0.3),
                             inset 0px -1px 0px 1px rgba(0, 0, 0, 0.29),
                             0px 1px 2px 0px rgba(0, 0, 0, 0.5);
 
     --slider-thumb-shadow-hover:    inset 0px 0px 0px 1px rgba(0, 0, 0, 0.35),
-                                    inset 0pc 1px 0px 1px rgba(255, 255, 255, 0.3),
+                                    inset 0px 1px 0px 1px rgba(255, 255, 255, 0.3),
                                     inset 0px -1px 0px 1px rgba(0, 0, 0, 0.29),
                                     0px 1px 2px 0px rgba(0, 0, 0, 0.5),
                                     0px 0px 0px 6px rgba(255, 255, 255, 0.08);
@@ -1078,10 +1062,9 @@ body {
     --tab-text-color-focused-highlighted: var(--text-accent);
     --tab-text-color-focused-active-current: var(--text-normal);
     --tab-divider-color: var(--background-modifier-border-hover);
-    --tab-outline-color: var(--color-d-gray-70);
+    --tab-outline-color: transparent;
 
     // Stacked Tab
-    --tab-outline-color: transparent;
     --tab-stacked-shadow:   -2.9px 0 10.5px -6.2px rgba(0, 0, 0, 0.31),
                             -6.2px 0 3.6px -5.2px rgba(0, 0, 0, 0.27),
                             -9.4px 0 8.4px -4.1px rgba(0, 0, 0, 0.2);
@@ -1110,7 +1093,7 @@ body {
     --tooltip-shadow:   inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3),
                         0px 2px 4px -1.4px rgba(0, 0, 0, 0.3),
                         0px 3px 10px -1.7px rgba(0, 0, 0, 0.14);
-    
+
     /*────────── Editor ──────────*/
 
     /* Active Line */
@@ -1129,16 +1112,16 @@ body {
 
     --callout-title-color: var(--text-normal);
     --callout-content-background: color-mix(
-                                    in srgb, 
-                                    var(--background-primary-alt) 50%, 
+                                    in srgb,
+                                    var(--background-primary-alt) 50%,
                                     var(--editor-bg-color)
                                     );
 
     /* Embed */
     --embed-background: var(--embed-bg-color-mix);
     --embed-bg-color-mix: color-mix(
-                                    in srgb, 
-                                    var(--background-primary-alt) 50%, 
+                                    in srgb,
+                                    var(--background-primary-alt) 50%,
                                     var(--editor-bg-color)
                                     );
     --embed-border-top-color: var(--background-modifier-border);
@@ -1206,11 +1189,15 @@ body {
     --metadata-divider-color-hover: transparent;
     --metadata-divider-color-focus: transparent;
 
+    /* Inline Code */
+    --pl-inline-code-color: var(--color-d-red-20);
+    --pl-inline-code-background: var(--color-d-gray-130);
+
     /* Table */
     --table-background: var(--color-d-gray-120);
     --table-header-background: var(--color-d-gray-130);
     --table-header-background-hover: var(--table-header-background);
-    --table-column-alt-background: var(--color-d-gray-130);
+    --table-column-alt-background: transparent;
 
     /* Tag */
     --tag-color: var(--color-d-blue-30);
@@ -1224,15 +1211,17 @@ body {
     /*────────── Mobile ──────────*/
 
     &.is-mobile {
-        // Copied .theme-dark variables
+        // .theme-dark values that Obsidian's .is-mobile.theme-dark replaces
         --color-base-00: var(--color-d-gray-140);
         --color-base-10: var(--color-d-gray-100);
         --color-base-20: var(--color-d-gray-90);
         --tag-background: rgba(0, 0, 0, 0.3);
         --search-result-background: var(--background-primary-alt);
-        --background-modifier-form-field: var(--color-d-gray-130);
-        --background-modifier-cover: rgba(10, 10, 10, 0.4);
-        --background-modifier-hover: rgba(0, 0, 0, 0.3);
+        --background-modifier-message: var(--color-d-gray-70);
+        --interactive-normal: var(--color-d-gray-120);
+        --interactive-hover: color-mix(in hsl, var(--color-d-gray-100) 50%, var(--interactive-normal));
+        --modal-background: var(--background-primary);
+        --modal-border-color: var(--background-modifier-border-hover);
 
         --mobile-sidebar-background: var(--background-secondary);
 
@@ -1253,26 +1242,14 @@ body {
     &.is-tablet {
         --titlebar-background: var(--background-secondary);
         --titlebar-background-focused: var(--background-secondary);
-        --interactive-normal: var(--color-d-gray-120);
-        --interactive-hover: color-mix(in hsl, var(--color-d-gray-100) 50%, var(--interactive-normal));
-        --modal-background: var(--background-primary);
     }
-    
+
     /*────────── Core Plugins ──────────*/
 
     /* Canvas */
+    // Card colors come from Obsidian, which builds them from --color-*. 1.6
+    // wants rgb triplets here and 1.14 full colors, so don't set them.
     --canvas-background: var(--editor-bg-color);
-
-    &.theme-dark {
-        --canvas-color: var(--color-gray-rgb);
-    }
-
-    --canvas-color-1: var(--color-red-rgb);
-    --canvas-color-2: var(--color-orange-rgb);
-    --canvas-color-3: var(--color-yellow-rgb);
-    --canvas-color-4: var(--color-green-rgb);
-    --canvas-color-5: var(--color-blue-rgb);
-    --canvas-color-6: var(--color-purple-rgb);
 
     /* Graph */
     --graph-node: var(--color-d-blue-30);

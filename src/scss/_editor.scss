@@ -32,7 +32,9 @@ body:not(.is-phone) .workspace-split.mod-root {
 }
 
 .workspace-split.mod-root {
-    .view-header,
+    --file-header-background: var(--editor-bg-color);
+    --file-header-background-focused: var(--editor-bg-color);
+
     .view-content {
         background-color: var(--editor-bg-color);
     }
@@ -77,11 +79,6 @@ body {
     }
 }
 
-// File header
-.view-header {
-    border-bottom: var(--file-header-border);
-}
-
 // Line numbers
 .cm-gutterElement {
     color: var(--gutter-color);
@@ -107,7 +104,8 @@ body.editor-bgpattern-dotgrid .workspace-split.mod-root .view-content {
 
 /*────────── SS: File Header ──────────*/
 
-body.file-header-hover .view-header {
+// Touch screens have no hover, so the header stays on phones and tablets
+body.file-header-hover:not(.is-mobile) .view-header {
     height: 10px;
     border-bottom-color: transparent;
     transition: var(--anim-duration-moderate) var(--anim-motion-smooth);
@@ -127,7 +125,7 @@ body.file-header-hover .view-header {
     }
 }
 
-body.file-header-title-hover .view-header-title-container {
+body.file-header-title-hover:not(.is-mobile) .view-header-title-container {
     opacity: 0;
     transition: var(--anim-duration-moderate) var(--anim-motion-smooth);
 
@@ -141,4 +139,26 @@ body.file-header-title-hover .view-header-title-container {
 body.active-line-highlight .cm-line.cm-active {
     background: var(--active-line-bg);
     box-shadow: -25vw 0 var(--active-line-bg), 25vw 0 var(--active-line-bg);
+}
+
+/*────────── Note Elements ──────────*/
+
+// Inline code: Obsidian colors it like code blocks; Primary gives it its own
+// color so it stands out from the text around it
+.cm-s-obsidian span.cm-inline-code,
+.markdown-rendered :not(pre) > code {
+    --code-normal: var(--pl-inline-code-color);
+    --code-background: var(--pl-inline-code-background);
+    --code-radius: var(--pl-inline-code-radius);
+}
+
+// Tables fill the line width, as in Primary
+.markdown-rendered table,
+.markdown-source-view.mod-cm6 .cm-table-widget .table-wrapper {
+    width: 100%;
+}
+
+// Embedded notes are rounded like callouts and code blocks
+.markdown-embed:not(.canvas-node-content) {
+    border-radius: var(--pl-embed-radius);
 }

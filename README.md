@@ -41,6 +41,8 @@ All of these are in Style Settings → Primary Lite.
 
 On tablets, sidebars that are not pinned float as cards.
 
+Notes follow Primary's look without any options: callouts with a tinted title band, inline code in its own color, tables the width of the text and rounded embeds.
+
 ### Folder colors
 
 Folders get colors from a CSS snippet, so a color stays with a folder when you add or reorder others. Start from [`snippets/folder-colors.css`](snippets/folder-colors.css):
