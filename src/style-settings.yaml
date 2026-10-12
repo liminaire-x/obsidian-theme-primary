@@ -280,6 +280,12 @@ settings:
     opacity: true
     default-light: '#9d8062'
     default-dark: '#917959'
+  - id: 'pl-highlight-radius'
+    type: 'variable-number'
+    title: 'Highlight Roundness'
+    description: 'Corner radius of ==highlights==, in px. 0 for square corners.'
+    default: 4
+    format: 'px'
   - id: 'active-line-highlight'
     type: 'class-toggle'
     title: 'Highlight Active Line'

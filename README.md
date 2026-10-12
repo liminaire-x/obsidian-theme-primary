@@ -34,7 +34,7 @@ All of these are in Style Settings → Primary Lite.
 |---|---|
 | File Explorer → Folder Colors | Color folder names, icons, indentation guides, file names and backgrounds by folder. Six named colors you can adjust. |
 | File Explorer → Icons | Open and closed folder icons in place of the collapse arrows, and icons for notes, bases, canvases and other files. Each icon can be replaced. |
-| Editor | Plain, line grid or dot grid background, borders, file header that shows on hover, readable line width, line number colors, active line highlight |
+| Editor | Plain, line grid or dot grid background, borders, file header that shows on hover, readable line width, line number colors, active line highlight, rounded `==highlights==` |
 | Ribbon | Docked or slide out on hover, background, border, roundness, width, icon size and spacing |
 | Status Bar | On top, full length, slide up, slide out or floating; show everything, sync only or word count only; background, border, roundness, floating opacity |
 
@@ -73,13 +73,23 @@ npm run dev      # rebuild on changes and copy to OBSIDIAN_PATH (see .env.exampl
 
 Sources are in `src/`: `scss/` for the styles (`_palette.scss` holds the colors), `style-settings.yaml` for the Style Settings options and `header.css` for the comment at the top of `theme.css`. Commit `theme.css` together with source changes; the Build workflow fails if it doesn't match the sources.
 
+### Preview in Obsidian
+
+```
+npm run preview -- --out light.png
+npm run preview -- --dark --snippet snippets/folder-colors.css
+npm run preview -- --mobile --width 1180 --height 820
+```
+
+Runs the real Obsidian app with the current `theme.css` on a sample vault and saves a screenshot. The first run downloads Obsidian, Electron and helpers into `.cache/preview`. On Linux without a display it uses `xvfb-run`. Style Settings options that default to on are applied; add others with `--class`, and fonts or other CSS with `--snippet`. `--help` lists all options.
+
 ### Check for broken selectors
 
 ```
 npm run audit:selectors
 ```
 
-Downloads two official Obsidian builds, the baseline in `scripts/audit-selectors.config.json` and the latest release (or `--to <version>`), and reports theme classes, icons, attribute values and CSS variables that the newer build no longer has, plus class combinations Obsidian's own CSS stopped using, with their `src/scss` locations. `--verbose` lists informational sections too. Accept a reviewed finding by adding it to `ignore` in the config with a reason; once everything is fixed or ignored, raise `baseline` to the version you checked.
+Downloads two official Obsidian builds, the baseline in `scripts/audit-selectors.config.json` and the latest release (or `--to <version>`), and reports theme classes, icons, attribute values and CSS variables that the newer build no longer has, plus class combinations Obsidian's own CSS stopped using, with their `src/scss` locations. `--verbose` lists informational sections too. Accept a reviewed finding by adding it to `ignore` in the config with a reason; once everything is fixed or ignored, raise `baseline` to the version you checked. The Selector Audit workflow runs this every Monday against the latest Obsidian and fails when something broke.
 
 ### Release
 
