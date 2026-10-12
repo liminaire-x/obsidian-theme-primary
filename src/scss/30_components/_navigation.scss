@@ -56,6 +56,6 @@ body:not(.is-grabbing) .tree-item-self.is-clickable:hover .tree-item-flair {
     }
 }
 
-.nav-folder-title.is-selected .nav-folder-collapse-indicator svg.svg-icon {
+.nav-folder-title.is-selected .collapse-icon svg.svg-icon {
     color: var(--nav-item-color-selected);
 }
