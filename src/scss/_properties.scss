@@ -59,6 +59,19 @@ body.is-phone .metadata-container {
     --metadata-padding: var(--size-4-2);
 }
 
+// Pills set line-height: 1 and clip their text, which cuts off descenders
+// (g, p, j). Widen the clip area without changing the pill's size.
+.multi-select-pill-content {
+    padding-block: 0.2em;
+    margin-block: -0.2em;
+}
+
+// Obsidian leaves room for the date picker icon except on iOS and Android,
+// but Android draws the icon too
+body.is-android input:is([type='date'], [type='datetime-local']):not([disabled="true"]) {
+    padding-left: var(--size-4-6);
+}
+
 /*────────── SS: Properties Heading ──────────*/
 
 // Only the title: the arrow stays so the box can still be collapsed
