@@ -156,7 +156,7 @@ const SAMPLE = {
         '[^1]: A footnote.', '',
     ].join('\n'),
     'Properties.md': [
-        '---', 'tags:', '  - project', '  - 한글', 'aliases:', '  - Props', 'status: In progress',
+        '---', 'tags:', '  - log', '  - project', '  - 한글', 'aliases:', '  - Props', 'status: In progress',
         'due: 2026-01-15', 'priority: 2', 'done: false', 'related: "[[Welcome]]"', '---', '',
         '# Properties', '', 'A note with properties.', '',
     ].join('\n'),
