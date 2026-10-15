@@ -72,6 +72,12 @@ body {
     }
 }
 
+// The ribbon's rounded corners and bottom margin show what is behind it, the
+// app background. Give that the color around the ribbon.
+body:not(.is-mobile) .workspace {
+    background-color: var(--titlebar-background);
+}
+
 body:not(.is-mobile) .workspace-ribbon .side-dock-ribbon-action .svg-icon {
     --icon-size: var(--ribbon-icon);
 }
