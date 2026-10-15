@@ -12,6 +12,12 @@ body:not(.is-phone) .workspace-split.mod-root {
         border-bottom: none;
     }
 
+    // The active tab's lower corners curve out by --tab-curve. Start the tabs
+    // past the card's rounded corner so the left curve meets its straight edge.
+    .workspace-tab-header-container-inner {
+        margin-inline-start: calc(var(--editor-border-radius) - var(--size-2-1));
+    }
+
     .workspace-tab-container,
     .workspace-leaf {
         background-color: transparent;
